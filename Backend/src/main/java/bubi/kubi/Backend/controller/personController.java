@@ -29,6 +29,20 @@ public class personController {
         return personRepository.findById(personId).orElseThrow(() -> new NoSuchElementException());
     }
 
+    @GetMapping("/{personName}/wichPerson")
+    public Person getPersonByUserName(@PathVariable String personName) {
+        List<Person> persons = personRepository.findAll();
+        for (Person p: persons) {
+            System.out.println(p.getUsername());
+            if(p.getUsername().equals(personName)){
+                System.out.println("found");
+                return p;
+            }
+        }
+        System.out.println("not found");
+        return null;
+    }    
+
     @PostMapping
     public Person addPerson(@RequestBody AddPersonRequest personRequest){
         Person person = new Person();
